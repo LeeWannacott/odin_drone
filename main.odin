@@ -20,7 +20,7 @@ camera: rl.Camera2D = {
 
 
 window_config :: proc() {
-	rl.SetTargetFPS(165)
+	rl.SetTargetFPS(0)
 	rl.SetConfigFlags({.WINDOW_RESIZABLE})
 	rl.SetWindowMonitor(0)
 	rl.InitWindow(
@@ -63,7 +63,6 @@ main :: proc() {
 			next_light += 1
 		}
 		update_dirty_lights(&boxes, &boxCount, lightMask)
-		rl.DrawFPS(-10, -10)
 
 
 		rl.DrawFPS(i32(screen_width) - 80, 10)
@@ -96,6 +95,8 @@ main :: proc() {
 			rl.GREEN,
 		)
 		rl.DrawText("Congrats! You created your first window!", 190, 200, 20, rl.LIGHTGRAY)
+
+		rl.DrawFPS(200, 250)
 		rl.EndDrawing()
 	}
 	// De-Initialization
