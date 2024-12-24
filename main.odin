@@ -220,8 +220,8 @@ draw_light_mask :: proc(slot: int) {
 	gl.SetBlendMode(i32(rl.BlendMode.CUSTOM))
 
 	// Draw the shadows to the alpha mask
-	for i := 0; i < 4; i += 1 {
-		rl.DrawTriangleFan(&lights[slot].shadows[i].vertices[i], 4, rl.WHITE)
+	for i := 0; i < lights[slot].shadowCount; i += 1 {
+		rl.DrawTriangleFan(&lights[slot].shadows[i].vertices[0], 4, rl.WHITE)
 	}
 
 
@@ -264,8 +264,8 @@ update_light :: proc(slot: int, boxes: ^[MAX_BOXES]rl.Rectangle, count: ^int) ->
 		// // Check the edges that are on the same side we are, and cast shadow volumes out from them
 
 		// // Top
-		sp: rl.Vector2 = rl.Vector2{boxes^[i].x, boxes^[i].y}
-		ep: rl.Vector2 = rl.Vector2{boxes^[i].x + boxes^[i].width, boxes^[i].y}
+		sp: rl.Vector2 = rl.Vector2{boxes[i].x, boxes[i].y}
+		ep: rl.Vector2 = rl.Vector2{boxes[i].x + boxes[i].width, boxes^[i].y}
 		if (lights[slot].position.y > ep.y) do compute_shadow_volume_for_edge(slot, sp, ep)
 		// Right
 		sp = ep
