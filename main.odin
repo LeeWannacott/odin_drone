@@ -54,7 +54,6 @@ main :: proc() {
 
 	for (!rl.WindowShouldClose()) {
 		move_light(0, player.x, player.y)
-		// fmt.println("hellope")
 		rl.BeginDrawing()
 		// rl.ClearBackground({20, 50, 75, 255})
 		rl.BeginMode2D(camera)
@@ -257,7 +256,6 @@ update_light :: proc(slot: int, boxes: ^[MAX_BOXES]rl.Rectangle, count: ^int) ->
 	lights[slot].valid = false
 	for i := 0; i < count^; i += 1 {
 		// // Are we in a box? if so we are not valid
-		fmt.print("in box", count^)
 		if rl.CheckCollisionPointRec(lights[slot].position, boxes^[i]) do return false
 
 		// // If this box is outside our bounds, we can skip it
@@ -282,7 +280,6 @@ update_light :: proc(slot: int, boxes: ^[MAX_BOXES]rl.Rectangle, count: ^int) ->
 		ep.y -= boxes^[i].height
 		if (lights[slot].position.x > ep.x) do compute_shadow_volume_for_edge(slot, sp, ep)
 
-		fmt.println("shadow count", boxes^[i].x, lights[slot].shadows[0].vertices)
 		// The;box;itsel
 		lights[slot].shadows[lights[slot].shadowCount].vertices[0] = rl.Vector2 {
 			boxes^[i].x,
@@ -410,7 +407,6 @@ draw_lighting :: proc(
 }
 
 handle_window_resize :: proc() {
-	fmt.println("window resized", rl.GetRenderWidth(), rl.GetScreenWidth())
 	backgroundTexture = backgroundTexture
 	img: rl.Image = rl.GenImageColor(rl.GetRenderWidth(), rl.GetRenderHeight(), rl.DARKGRAY)
 	backgroundTexture = rl.LoadTextureFromImage(img)
